@@ -1,3 +1,6 @@
+import AvatarDropdown from "../components/AvatarDropdown";
+import Footer from "../components/Footer";
+
 const Homepage = () => {
   return (
     <div className="bg-zinc-950 text-white">
@@ -23,14 +26,7 @@ const Homepage = () => {
             </li>
           </ul>
         </div>
-        <a href="/login">
-          <img
-            src="../src/assets/avatar.png"
-            width="75"
-            alt="Avatar"
-            className="hover:opacity-80"
-          />
-        </a>
+        <AvatarDropdown></AvatarDropdown>
       </nav>
 
       {/* Hero Section */}
@@ -66,7 +62,7 @@ const Homepage = () => {
           <span className="absolute right-0 top-1/2 -translate-y-1/2">
             <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
           </span>
-          <div className="flex gap-8 justify-center">
+          <div className="flex gap-8 justify-center overflow-x-auto">
             {[
               { title: "Don't Look Up", rating: 4.2, image: "../src/assets/component.png" },
               { title: "All of Us Are Dead", rating: 3.2, image: "../src/assets/component2.png" },
@@ -99,7 +95,7 @@ const Homepage = () => {
           <span className="absolute right-0 top-1/2 -translate-y-1/2">
             <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
           </span>
-          <div className="flex gap-8 justify-center">
+          <div className="flex gap-8 justify-center overflow-x-auto">
             {[1, 2, 3, 4, 5].map((index) => (
               <img
                 key={index}
@@ -122,7 +118,7 @@ const Homepage = () => {
           <span className="absolute right-0 top-1/2 -translate-y-1/2">
             <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
           </span>
-          <div className="flex gap-8 justify-center">
+          <div className="flex gap-8 justify-center overflow-x-auto">
             {[6, 7, 8, 9, 10].map((index) => (
               <img
                 key={index}
@@ -145,7 +141,7 @@ const Homepage = () => {
           <span className="absolute right-0 top-1/2 -translate-y-1/2">
             <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
           </span>
-          <div className="flex gap-8 justify-center">
+          <div className="flex gap-8 justify-center overflow-x-auto">
             {[11, 12, 13, 14, 15].map((index) => (
               <img
                 key={index}
@@ -159,34 +155,7 @@ const Homepage = () => {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-600 py-10 px-10">
-        <div className="flex justify-between">
-          <div>
-            <img src="../src/assets/logo.png" width="163" alt="Logo" />
-            <h4 className="mt-4">© 2024 Chill® All Rights Reserved.</h4>
-          </div>
-          <div className="flex gap-10">
-            <div>
-              <h3 className="mb-6 text-xl font-semibold">Genre</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:underline">Aksi</a></li>
-                <li><a href="#" className="hover:underline">Anak-anak</a></li>
-                <li><a href="#" className="hover:underline">Anime</a></li>
-                <li><a href="#" className="hover:underline">Britania</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="mb-6 text-xl font-semibold">Bantuan</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:underline">FAQ</a></li>
-                <li><a href="#" className="hover:underline">Kontak Kami</a></li>
-                <li><a href="#" className="hover:underline">Privasi Policy</a></li>
-                <li><a href="#" className="hover:underline">Syarat dan Kebijakan</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer></Footer>
     </div>
   );
 };

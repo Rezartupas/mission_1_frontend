@@ -1,33 +1,11 @@
-import AvatarDropdown from "../components/AvatarDropdown";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Homepage = () => {
   return (
     <div className="bg-zinc-950 text-white">
       {/* Navigation Bar */}
-      <nav className="flex justify-between items-center p-5">
-        <div className="flex items-center gap-10">
-          <img src="../src/assets/Logo.png" alt="Logo" className="w-36 h-20" />
-          <ul className="flex gap-10">
-            <li>
-              <a href="#Series" className="hover:text-gray-300">
-                Series
-              </a>
-            </li>
-            <li>
-              <a href="#Film" className="hover:text-gray-300">
-                Film
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-gray-300">
-                Daftar Saya
-              </a>
-            </li>
-          </ul>
-        </div>
-        <AvatarDropdown></AvatarDropdown>
-      </nav>
+      <Header></Header>
 
       {/* Hero Section */}
       <section className="relative bg-cover bg-center h-[88vh]" style={{ backgroundImage: `url('../src/assets/das.png')` }}>
@@ -54,101 +32,148 @@ const Homepage = () => {
 
       {/* Section Melanjutkan Tonton Film */}
       <main className="my-20 px-10" id="Film">
-        <h1 className="text-3xl mb-8">Melanjutkan Tonton Film</h1>
+  <h1 className="text-3xl mb-8">Melanjutkan Tonton Film</h1>
+  <div className="relative">
+    <span className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer">
+      <img src="../src/assets/arrowleft.png" width="44" alt="Left Arrow" />
+    </span>
+    <span className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer">
+      <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
+    </span>
+    <div className="flex gap-8 justify-center overflow-x-auto">
+      {[
+        { title: "Don't Look Up", rating: 4.2, image: "../src/assets/component.png" },
+        { title: "All of Us Are Dead", rating: 3.2, image: "../src/assets/component2.png" },
+        { title: "Bluelock", rating: 4.5, image: "../src/assets/component1.png" },
+        { title: "A Man Called Otto", rating: 4.7, image: "../src/assets/component3.png" },
+      ].map((movie, index) => (
+        <div
+          key={index}
+          className="relative w-80 h-40 bg-cover bg-no-repeat rounded-lg p-4 flex justify-between items-end group overflow-hidden"
+          style={{ backgroundImage: `url(${movie.image})` }}
+        >
+          {/* Movie Info */}
+          <div className="flex justify-between w-full">
+            <p className="text-white font-semibold">{movie.title}</p>
+            <p className="flex items-center gap-1 text-white">
+              <img src="../src/assets/star.png" width="12" alt="Star" />
+              {movie.rating}/5
+            </p>
+          </div>
+          {/* Hover Button */}
+          <button
+            className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-60 text-white font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            ▶ Lanjutkan Menonton
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+</main>
+
+
+      {/* Top Rating Hari Ini */}
+      <main className="my-20 px-10" id="Series">
+  <h1 className="text-3xl mb-8">Top Rating Film dan Series Hari Ini</h1>
+  <div className="relative">
+    <span className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer">
+      <img src="../src/assets/arrowleft.png" width="44" alt="Left Arrow" />
+    </span>
+    <span className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer">
+      <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
+    </span>
+    <div className="flex gap-8 justify-center overflow-x-auto">
+      {[1, 2, 3, 4, 5].map((index) => (
+        <div
+          key={index}
+          className="relative w-56 h-80 rounded-lg overflow-hidden group shadow-lg"
+        >
+          <img
+            src={`../src/assets/${index}.jpeg`}
+            alt={`Movie ${index}`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity duration-300">
+            <button className="mb-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-600">
+              Tambahkan ke Daftar Saya
+            </button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500">
+            ▶ Mulai
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</main>
+
+
+      {/* Film Trending */}
+      <main className="my-20 px-10" id="Trending" >
+        <h1 className="text-3xl mb-8">Film Trending</h1>
         <div className="relative">
-          <span className="absolute left-0 top-1/2 -translate-y-1/2">
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer" >
             <img src="../src/assets/arrowleft.png" width="44" alt="Left Arrow" />
           </span>
-          <span className="absolute right-0 top-1/2 -translate-y-1/2">
+          <span className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer">
             <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
           </span>
           <div className="flex gap-8 justify-center overflow-x-auto">
-            {[
-              { title: "Don't Look Up", rating: 4.2, image: "../src/assets/component.png" },
-              { title: "All of Us Are Dead", rating: 3.2, image: "../src/assets/component2.png" },
-              { title: "Bluelock", rating: 4.5, image: "../src/assets/component1.png" },
-              { title: "A Man Called Otto", rating: 4.7, image: "../src/assets/component3.png" },
-            ].map((movie, index) => (
+            {[6, 7, 8, 9, 10].map((index) => (
               <div
                 key={index}
-                className="w-80 h-40 bg-cover bg-no-repeat rounded-lg p-4 flex justify-between items-end"
-                style={{ backgroundImage: `url(${movie.image})` }}
-              >
-                <p>{movie.title}</p>
-                <p className="flex items-center gap-1">
-                  <img src="../src/assets/star.png" width="12" alt="Star" />
-                  {movie.rating}/5
-                </p>
+                className="relative w-56 h-80 rounded-lg overflow-hidden group shadow-lg"
+                >
+                <img
+                src={`../src/assets/${index}.jpeg`}
+                alt={`Movie ${index}`}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity duration-300">
+                <button className="mb-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-600">
+                  Tambahkan ke Daftar Saya
+                </button>
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500">
+                  ▶ Mulai
+                </button>
+              </div>
               </div>
             ))}
           </div>
         </div>
       </main>
 
-      {/* Top Rating Hari Ini */}
-      <main className="my-20 px-10" id="Series">
-        <h1 className="text-3xl mb-8">Top Rating Film dan Series Hari Ini</h1>
-        <div className="relative">
-          <span className="absolute left-0 top-1/2 -translate-y-1/2">
-            <img src="../src/assets/arrowleft.png" width="44" alt="Left Arrow" />
-          </span>
-          <span className="absolute right-0 top-1/2 -translate-y-1/2">
-            <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
-          </span>
-          <div className="flex gap-8 justify-center overflow-x-auto">
-            {[1, 2, 3, 4, 5].map((index) => (
-              <img
-                key={index}
-                src={`../src/assets/${index}.jpeg`}
-                alt={`Movie ${index}`}
-                className="w-56 h-80 rounded-lg"
-              />
-            ))}
-          </div>
-        </div>
-      </main>
-
-      {/* Film Trending */}
-      <main className="my-20 px-10">
-        <h1 className="text-3xl mb-8">Film Trending</h1>
-        <div className="relative">
-          <span className="absolute left-0 top-1/2 -translate-y-1/2">
-            <img src="../src/assets/arrowleft.png" width="44" alt="Left Arrow" />
-          </span>
-          <span className="absolute right-0 top-1/2 -translate-y-1/2">
-            <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
-          </span>
-          <div className="flex gap-8 justify-center overflow-x-auto">
-            {[6, 7, 8, 9, 10].map((index) => (
-              <img
-                key={index}
-                src={`../src/assets/${index}.jpeg`}
-                alt={`Movie ${index}`}
-                className="w-56 h-80 rounded-lg"
-              />
-            ))}
-          </div>
-        </div>
-      </main>
-
       {/* Rilis Baru */}
-      <main className="my-20 px-10">
+      <main className="my-20 px-10" id="Baru">
         <h1 className="text-3xl mb-8">Rilis Baru</h1>
         <div className="relative">
-          <span className="absolute left-0 top-1/2 -translate-y-1/2">
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer">
             <img src="../src/assets/arrowleft.png" width="44" alt="Left Arrow" />
           </span>
-          <span className="absolute right-0 top-1/2 -translate-y-1/2">
+          <span className="absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer">
             <img src="../src/assets/arrowright.png" width="44" alt="Right Arrow" />
           </span>
           <div className="flex gap-8 justify-center overflow-x-auto">
             {[11, 12, 13, 14, 15].map((index) => (
-              <img
+              <div
                 key={index}
-                src={`../src/assets/${index}.jpeg`}
-                alt={`Movie ${index}`}
-                className="w-56 h-80 rounded-lg"
-              />
+                className="relative w-56 h-80 rounded-lg overflow-hidden group shadow-lg"
+              >
+                <img
+                  src={`../src/assets/${index}.jpeg`}
+                  alt={`Movie ${index}`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 flex flex-col justify-center items-center transition-opacity duration-300">
+                  <button className="mb-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-600">
+                    Tambahkan ke Daftar Saya
+                  </button>
+                  <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500">
+                    ▶ Mulai
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         </div>

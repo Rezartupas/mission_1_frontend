@@ -23,7 +23,7 @@ const AvatarDropdown = () => {
         onClick={toggleDropdown}
         className="flex items-center gap-3 focus:outline-none"
       >
-        <span className="text-white">{username}</span>
+        <span className="text-white font-semibold mr-2">{username}</span>
         <img
           className="w-20 h-13 rounded-full"
           src="../src/assets/avatar.png" 

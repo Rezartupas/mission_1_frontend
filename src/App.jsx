@@ -24,7 +24,7 @@ function App() {
         {/* Image Section */}
         <div className="relative">
           <img
-            src="../public/img/iphone.png" 
+            src="../img/iphone.png" 
             alt="Phone Mockup"
             className="w-full h-auto transform shadow-xl"
           />

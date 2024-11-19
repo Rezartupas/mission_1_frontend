@@ -1,4 +1,30 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Get stored user data
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    
+    if (username === 'admin' && password === 'admin') {
+      // Admin login
+      localStorage.setItem('currentUser', JSON.stringify({ username: 'admin' }));
+      navigate('/admin');
+    } else if (storedUser && storedUser.username === username && storedUser.password === password) {
+      // Regular user login
+      localStorage.setItem('currentUser', JSON.stringify({ username: username }));
+      navigate('/home');
+    } else {
+      alert('Username atau password salah!');
+    }
+  };
+
   return (
     <div
       className="bg-cover bg-center min-h-screen flex items-center justify-center"
@@ -16,7 +42,7 @@ const Login = () => {
           <h4 className="text-2xl font-semibold mb-2">Masuk</h4>
           <p className="text-sm font-light">Selamat Datang Kembali!</p>
         </div>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="text-left">
             <label
               htmlFor="name"
@@ -27,8 +53,11 @@ const Login = () => {
             <input
               type="text"
               id="name"
-              placeholder="Masukkan username"
+              placeholder="Masukkan username" 
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 rounded-full border border-white bg-transparent text-white focus:outline-none focus:ring focus:ring-blue-500"
+              required
             />
           </div>
           <div className="text-left">
@@ -42,7 +71,10 @@ const Login = () => {
               type="password"
               id="password"
               placeholder="Masukkan kata sandi"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 rounded-full border border-white bg-transparent text-white focus:outline-none focus:ring focus:ring-blue-500"
+              required
             />
           </div>
           <div className="flex justify-between items-center text-white text-sm mt-2">
@@ -56,8 +88,11 @@ const Login = () => {
               Lupa Password?
             </a>
           </div>
-          <button className="w-full py-3 mt-4 bg-gray-700 hover:bg-blue-600 text-white rounded-full font-semibold transition duration-300">
-            <a href="home">Masuk</a>
+          <button 
+            type="submit"
+            className="w-full py-3 mt-4 bg-gray-700 hover:bg-blue-600 text-white rounded-full font-semibold transition duration-300"
+          >
+            Masuk
           </button>
         </form>
         <div className="mt-6">

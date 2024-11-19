@@ -2,6 +2,14 @@ import { useState } from 'react';
 
 const AvatarDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState('');
+
+  useState(() => {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+      setUsername(user.username);
+    }
+  }, []);
 
   // Fungsi untuk toggle dropdown
   const toggleDropdown = () => {
@@ -13,8 +21,9 @@ const AvatarDropdown = () => {
       {/* Avatar yang bisa di-klik */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center focus:outline-none"
+        className="flex items-center gap-3 focus:outline-none"
       >
+        <span className="text-white">{username}</span>
         <img
           className="w-20 h-13 rounded-full"
           src="../src/assets/avatar.png" 

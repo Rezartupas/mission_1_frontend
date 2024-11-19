@@ -46,9 +46,12 @@ const List = () => {
   const carouselSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 6,
     slidesToScroll: 1,
+    cssEase: "linear",
+    autoplay: true,
+    autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 1024,

@@ -7,6 +7,7 @@ import Register from './Pages/Register.jsx';
 import Login from './Pages/Login.jsx';
 import Homepage from './Pages/Homepage.jsx';
 import Mylist from './Pages/Mylist.jsx';
+import Admin from './Pages/Admin.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/mylist",  
     element: <Mylist />,
+  },
+  {
+    path: "/admin",
+    element: <Admin />,
   },
   {
     path: "/",

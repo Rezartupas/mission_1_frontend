@@ -1,4 +1,32 @@
+import { useState } from 'react';
+
 const Register = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("Kata sandi tidak cocok!");
+      return;
+    }
+    
+    // Check if username already exists
+    const existingUser = JSON.parse(localStorage.getItem('user'));
+    if (existingUser && existingUser.username === username) {
+      alert("Username sudah terpakai!");
+      return;
+    }
+    
+    // Simpan data pengguna ke local storage
+    const user = { username, password };
+    localStorage.setItem('user', JSON.stringify(user));
+    alert("Pendaftaran berhasil!");
+    // Redirect ke halaman login
+    window.location.href = '/login';
+  };
+
   return (
     <div
       className="bg-cover bg-center min-h-screen flex items-center justify-center"
@@ -16,7 +44,7 @@ const Register = () => {
           <h4 className="text-2xl font-semibold mb-2">Daftar</h4>
           <p className="text-sm font-light">Selamat Datang!</p>
         </div>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="text-left">
             <label htmlFor="name" className="block text-white text-sm mb-2">
               Username
@@ -25,6 +53,8 @@ const Register = () => {
               type="text"
               id="name"
               placeholder="Masukkan username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 rounded-full border border-white bg-transparent text-white focus:outline-none focus:ring focus:ring-blue-500"
             />
           </div>
@@ -36,6 +66,8 @@ const Register = () => {
               type="password"
               id="password"
               placeholder="Masukkan Kata Sandi"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 rounded-full border border-white bg-transparent text-white focus:outline-none focus:ring focus:ring-blue-500"
             />
           </div>
@@ -50,6 +82,8 @@ const Register = () => {
               type="password"
               id="confirm-password"
               placeholder="Masukkan Kata Sandi"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-3 rounded-full border border-white bg-transparent text-white focus:outline-none focus:ring focus:ring-blue-500"
             />
           </div>
@@ -61,14 +95,14 @@ const Register = () => {
               </a>
             </p>
           </div>
-          <button className="w-full py-3 mt-4 bg-gray-700 hover:bg-blue-600 text-white rounded-full font-semibold transition duration-300">
-            <a href="/login">Daftar</a>
+          <button type="submit" className="w-full py-3 mt-4 bg-gray-700 hover:bg-blue-600 text-white rounded-full font-semibold transition duration-300">
+            Daftar
           </button>
         </form>
         <div className="mt-6">
           <h2 className="text-gray-400 text-sm">Atau</h2>
           <button className="flex justify-center items-center gap-4 w-full py-3 mt-4 bg-gray-600 hover:bg-gray-700 text-white rounded-full font-semibold transition duration-300">
-            <img src="../src/assets/goggle.webp" alt="Google Logo" className="w-6" />
+            <img src="../src/assets/goggle.webp" alt="Google" className="w-5 h-5" />
             Daftar dengan Google
           </button>
         </div>

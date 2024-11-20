@@ -1,27 +1,37 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../services/api/api';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Get stored user data
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    
-    if (username === 'admin' && password === 'admin') {
-      // Admin login
-      localStorage.setItem('currentUser', JSON.stringify({ username: 'admin' }));
-      navigate('/admin');
-    } else if (storedUser && storedUser.username === username && storedUser.password === password) {
-      // Regular user login
-      localStorage.setItem('currentUser', JSON.stringify({ username: username }));
-      navigate('/home');
-    } else {
-      alert('Username atau password salah!');
+    try {
+      if (username === 'admin' && password === 'admin') {
+        // Admin login
+        localStorage.setItem('currentUser', JSON.stringify({ username: 'admin', isAdmin: true }));
+        navigate('/admin');
+        return;
+      }
+
+      const user = await api.loginUser({ username, password });
+      
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify({ 
+          id: user.id,
+          username: user.username 
+        }));
+        navigate('/home');
+      } else {
+        alert('Username atau password salah!');
+      }
+    } catch (error) {
+      alert('Terjadi kesalahan saat login!');
+      console.error(error);
     }
   };
 

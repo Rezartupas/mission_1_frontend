@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AvatarDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState('');
 
-  useState(() => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (user) {
       setUsername(user.username);
@@ -41,9 +44,14 @@ const AvatarDropdown = () => {
             <a href="#settings" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
               Ubah Premium
             </a>
-            <a href="/" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
+            <button 
+              onClick={() => {
+                localStorage.removeItem('currentUser');
+                navigate('/login');
+              }} 
+              className="block w-full text-left px-4 py-2 text-sm text-white hover:text-blue-500">
               Keluar
-            </a>
+            </button>
           </div>
         </div>
       )}

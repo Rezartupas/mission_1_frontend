@@ -1,30 +1,39 @@
 import { useState } from 'react';
+import { api } from '../services/api/api';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Kata sandi tidak cocok!");
       return;
     }
-    
-    // Check if username already exists
-    const existingUser = JSON.parse(localStorage.getItem('user'));
-    if (existingUser && existingUser.username === username) {
-      alert("Username sudah terpakai!");
-      return;
+
+    try {
+      // Check if username already exists
+      const users = await api.getUsers();
+      const existingUser = users.find(user => user.username === username);
+      
+      if (existingUser) {
+        alert("Username sudah terpakai!");
+        return;
+      }
+
+      // Create new user
+      await api.createUser({ username, password });
+      alert("Pendaftaran berhasil!");
+      navigate('/login');
+    } catch (error) {
+      alert("Terjadi kesalahan saat mendaftar!");
+      console.error(error);
     }
-    
-    // Simpan data pengguna ke local storage
-    const user = { username, password };
-    localStorage.setItem('user', JSON.stringify(user));
-    alert("Pendaftaran berhasil!");
-    // Redirect ke halaman login
-    window.location.href = '/login';
   };
 
   return (

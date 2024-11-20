@@ -7,10 +7,13 @@ const AvatarDropdown = () => {
 
   const navigate = useNavigate();
 
+  const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (user) {
       setUsername(user.username);
+      setIsAdmin(user.isAdmin || false);
     }
   }, []);
 
@@ -44,6 +47,11 @@ const AvatarDropdown = () => {
             <a href="#settings" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
               Ubah Premium
             </a>
+            {isAdmin && (
+              <a href="/admin" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
+                Halaman Admin
+              </a>
+            )}
             <button 
               onClick={() => {
                 localStorage.removeItem('currentUser');

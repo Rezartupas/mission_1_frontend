@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
+  const navigate = useNavigate();
   const [newMovie, setNewMovie] = useState({
     title: '',
     description: '',
@@ -27,7 +29,15 @@ const Admin = () => {
     <div className="min-h-screen bg-zinc-900 text-white p-8">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center gap-4 mb-8 justify-between" >
-          <img src="./img/Logo.png" alt="Logo" className="w-36 h-20" />
+          <div className="flex items-center gap-4">
+            <img src="./img/Logo.png" alt="Logo" className="w-36 h-20" />
+            <button 
+              onClick={() => navigate('/home')}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Back to Homepage
+            </button>
+          </div>
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
         </div>
         

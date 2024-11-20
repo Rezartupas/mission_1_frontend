@@ -8,6 +8,7 @@ import Login from './Pages/Login.jsx';
 import Homepage from './Pages/Homepage.jsx';
 import Mylist from './Pages/Mylist.jsx';
 import Admin from './Pages/Admin.jsx';
+import Myprofile from './Pages/Myprofile.jsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/myprofile",
+    element: <Myprofile />,
   },
   {
     path: "/",

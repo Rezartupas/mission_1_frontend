@@ -49,7 +49,7 @@ const AvatarDropdown = () => {
             </a>
             {isAdmin && (
               <a href="/admin" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
-                Halaman Admin
+                Admin Dashboard
               </a>
             )}
             <button 

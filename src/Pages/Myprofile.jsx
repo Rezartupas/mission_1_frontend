@@ -12,7 +12,7 @@ const Myprofile = () => {
                         <img 
                             src="../src/assets/avatar.png"
                             alt="Profile" 
-                            className="w-24 h-24 rounded-full"
+                            className="w-31 h-24 rounded-full"
                         />
                         <div>
                             <h2 className="text-xl font-semibold">Username</h2>

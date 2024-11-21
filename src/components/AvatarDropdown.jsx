@@ -15,7 +15,7 @@ const AvatarDropdown = () => {
       setUsername(user.username);
       setIsAdmin(user.isAdmin || false);
     }
-  }, []);
+  }, [localStorage.getItem('currentUser')]);
 
   // Fungsi untuk toggle dropdown
   const toggleDropdown = () => {

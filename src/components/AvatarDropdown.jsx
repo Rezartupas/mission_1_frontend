@@ -1,65 +1,106 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AvatarDropdown = () => {
+  // State management
   const [isOpen, setIsOpen] = useState(false);
-  const [username, setUsername] = useState('');
+  const [userData, setUserData] = useState({
+    username: '',
+    isAdmin: false
+  });
 
   const navigate = useNavigate();
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
+  // Load user data from localStorage
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user) {
-      setUsername(user.username);
-      setIsAdmin(user.isAdmin || false);
-    }
-  }, [localStorage.getItem('currentUser')]);
+    const loadUserData = () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (user) {
+          setUserData({
+            username: user.username,
+            isAdmin: user.isAdmin || false
+          });
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
+      }
+    };
 
-  // Fungsi untuk toggle dropdown
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+    loadUserData();
+    // Add event listener for storage changes
+    window.addEventListener('storage', loadUserData);
+    return () => window.removeEventListener('storage', loadUserData);
+  }, []);
+
+  // Handlers
+  const toggleDropdown = useCallback(() => {
+    setIsOpen(prev => !prev);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('currentUser');
+    navigate('/login');
+  }, [navigate]);
+
+  const handleProfileClick = useCallback(() => {
+    navigate('/myprofile');
+  }, [navigate]);
 
   return (
     <div className="relative inline-block text-left">
-      {/* Avatar yang bisa di-klik */}
       <button
         onClick={toggleDropdown}
-        className="flex items-center gap-3 focus:outline-none"
+        className="flex items-center gap-3 focus:outline-none hover:opacity-80 transition-opacity"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
-        <span className="text-white font-semibold mr-2">{username}</span>
+        <span className="text-white font-semibold mr-2">{userData.username}</span>
         <img
-          className="w-20 h-13 rounded-full"
+          className="w-20 h-13 rounded-full object-cover"
           src="../src/assets/avatar.png" 
-          alt="Avatar"
+          alt={`${userData.username}'s avatar`}
         />
       </button>
 
-      {/* Menu dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10">
+        <div 
+          className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-10"
+          role="menu"
+          aria-orientation="vertical"
+        >
           <div className="py-1">
             <button 
-              onClick={() => navigate('/myprofile')} 
-              className="block w-full text-left px-4 py-2 text-sm text-white hover:text-blue-500">
+              onClick={handleProfileClick}
+              className="block w-full text-left px-4 py-2 text-sm text-white hover:text-blue-500 hover:bg-zinc-800 transition-colors"
+              role="menuitem"
+            >
               Profil Saya
             </button>
-            <a href="#settings" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
+            
+            <a 
+              href="#settings" 
+              className="block px-4 py-2 text-sm text-white hover:text-blue-500 hover:bg-zinc-800 transition-colors"
+              role="menuitem"
+            >
               Ubah Premium
             </a>
-            {isAdmin && (
-              <a href="/admin" className="block px-4 py-2 text-sm text-white hover:text-blue-500">
+            
+            {userData.isAdmin && (
+              <a 
+                href="/admin" 
+                className="block px-4 py-2 text-sm text-white hover:text-blue-500 hover:bg-zinc-800 transition-colors"
+                role="menuitem"
+              >
                 Admin Dashboard
               </a>
             )}
+            
             <button 
-              onClick={() => {
-                localStorage.removeItem('currentUser');
-                navigate('/login');
-              }} 
-              className="block w-full text-left px-4 py-2 text-sm text-white hover:text-blue-500">
+              onClick={handleLogout}
+              className="block w-full text-left px-4 py-2 text-sm text-white hover:text-blue-500 hover:bg-zinc-800 transition-colors"
+              role="menuitem"
+            >
               Keluar
             </button>
           </div>
